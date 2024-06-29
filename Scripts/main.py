@@ -9,8 +9,8 @@ locations = [
     (40.712776, -74.005974), # New York, NY
     (34.052235, -118.243683), # Los Angeles, CA
     (41.878113, -87.629799), # Chicago, IL
-    # (29.760427, -95.369804), # Houston, TX
-    # (33.448376, -112.074036) # Phoenix, AZ
+    (29.760427, -95.369804), # Houston, TX
+    (33.448376, -112.074036) # Phoenix, AZ
 ]
 
 # URL cơ bản cho yêu cầu API
