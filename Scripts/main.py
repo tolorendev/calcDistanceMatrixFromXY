@@ -1,5 +1,6 @@
 import requests
 import json
+import pandas as pd
 
 # Thay 'your_api_key_here' bằng khóa API của bạn từ GraphHopper
 API_KEY = '658985e7-8063-48ad-9a77-1c96bd0e2c9c'
@@ -57,31 +58,39 @@ locations = [
     (10.897178130757064, 107.26758945345013), # Place 48
     (10.968193946301971, 106.90442383605256), # Place 49
     (10.968553677433972, 106.90506312440634), # Place 50
-
-
 ]
 
-# URL cơ bản cho yêu cầu API
-base_url = f'https://graphhopper.com/api/1/route?vehicle=car&locale=en&calc_points=true&key={API_KEY}'
+# Tạo danh sách các cặp địa điểm
+pairs = [(i, j) for i in range(len(locations)) for j in range(i+1, len(locations))]
 
-# Hàm tạo chuỗi các điểm cho yêu cầu API
-def create_url_with_points(base_url, locations):
-    for lat, lon in locations:
-        base_url += f'&point={lat},{lon}'
-    return base_url
+# Hàm gửi yêu cầu API và lấy khoảng cách, thời gian
+def get_distance_time(coord1, coord2):
+    url = f'https://graphhopper.com/api/1/route?vehicle=car&locale=en&calc_points=true&key={API_KEY}&point={coord1[0]},{coord1[1]}&point={coord2[0]},{coord2[1]}'
+    response = requests.get(url)
+    data = response.json()
+    if 'paths' in data:
+        distance = data['paths'][0]['distance'] / 1000  # chuyển đổi sang km
+        time = data['paths'][0]['time'] / 1000 / 60  # chuyển đổi sang phút
+        return distance, time
+    else:
+        return None, None
 
-# Tạo URL hoàn chỉnh với các điểm
-url = create_url_with_points(base_url, locations)
+# Tạo ma trận khoảng cách và thời gian
+distance_matrix = [[0]*len(locations) for _ in range(len(locations))]
+time_matrix = [[0]*len(locations) for _ in range(len(locations))]
 
-# Gửi yêu cầu đến API
-response = requests.get(url)
-data = response.json()
+# Điền dữ liệu vào ma trận
+for i, j in pairs:
+    distance, time = get_distance_time(locations[i], locations[j])
+    distance_matrix[i][j] = distance_matrix[j][i] = distance
+    time_matrix[i][j] = time_matrix[j][i] = time
 
-# Kiểm tra kết quả trả về
-if 'paths' in data:
-    for path in data['paths']:
-        distance = path['distance'] / 1000  # chuyển đổi sang km
-        time = path['time'] / 1000 / 60  # chuyển đổi sang phút
-        print(f"Khoảng cách: {distance} km, Thời gian: {time} phút")
-else:
-    print("Có lỗi xảy ra:", data)
+# Chuyển ma trận thành DataFrame và lưu vào Excel
+distance_df = pd.DataFrame(distance_matrix, columns=[f'Place {i}' for i in range(len(locations))], index=[f'Place {i}' for i in range(len(locations))])
+time_df = pd.DataFrame(time_matrix, columns=[f'Place {i}' for i in range(len(locations))], index=[f'Place {i}' for i in range(len(locations))])
+
+with pd.ExcelWriter('distance_time_matrix.xlsx') as writer:
+    distance_df.to_excel(writer, sheet_name='Distance Matrix')
+    time_df.to_excel(writer, sheet_name='Time Matrix')
+
+print("Ma trận khoảng cách và thời gian đã được lưu vào file 'distance_time_matrix.xlsx'")
