@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import requests
+import time
 
 # API key từ GraphHopper
 api_key = '1c9c4f2c-49d5-4952-a9c7-c35e6a9f4793'
@@ -36,19 +37,32 @@ for i in range(num_row_locations):
         print(
             f"Đang xử lý lần lặp thứ {iteration_count}/{total_iterations} (từ điểm hàng {i + 1} đến điểm cột {j + 1})...")
 
-        url = f"https://graphhopper.com/api/1/route?point={locations_row[i][0]},{locations_row[i][1]}&point={locations_col[j][0]},{locations_col[j][1]}&vehicle=car&locale=en&key={api_key}&calc_points=false"
-        response = requests.get(url)
-        data = response.json()
+        # Thử gửi yêu cầu đến khi nhận được kết quả hợp lệ
+        attempts = 0
+        max_attempts = 10  # Số lần thử tối đa
+        success = False
 
-        # Kiểm tra nếu khóa 'paths' tồn tại trong dữ liệu trả về
-        if 'paths' in data:
-            # Lấy khoảng cách từ kết quả trả về
-            distance = data['paths'][0]['distance'] / 1000  # Chuyển đổi từ mét sang kilomet
-            distance_matrix[i][j] = distance
-            print(f"Khoảng cách từ điểm hàng {i + 1} đến điểm cột {j + 1}: {distance:.2f} km")
-        else:
-            # Ghi lại thông báo lỗi nếu không có đường dẫn hợp lệ
-            print(f"Lỗi: Không tìm thấy 'paths' cho cặp tọa độ ({locations_row[i]}, {locations_col[j]})")
+        while not success and attempts < max_attempts:
+            attempts += 1
+            url = f"https://graphhopper.com/api/1/route?point={locations_row[i][0]},{locations_row[i][1]}&point={locations_col[j][0]},{locations_col[j][1]}&vehicle=car&locale=en&key={api_key}&calc_points=false"
+            response = requests.get(url)
+            data = response.json()
+
+            # Kiểm tra nếu khóa 'paths' tồn tại trong dữ liệu trả về
+            if 'paths' in data:
+                # Lấy khoảng cách từ kết quả trả về
+                distance = data['paths'][0]['distance'] / 1000  # Chuyển đổi từ mét sang kilomet
+                distance_matrix[i][j] = distance
+                print(f"Khoảng cách từ điểm hàng {i + 1} đến điểm cột {j + 1}: {distance:.2f} km")
+                success = True
+            else:
+                # Ghi lại thông báo lỗi và chờ trước khi thử lại
+                print(f"Thử lại lần {attempts} cho cặp tọa độ ({locations_row[i]}, {locations_col[j]})")
+                time.sleep(2)  # Chờ 2 giây trước khi thử lại
+
+        if not success:
+            print(
+                f"Lỗi: Không thể lấy 'paths' sau {max_attempts} lần thử cho cặp tọa độ ({locations_row[i]}, {locations_col[j]})")
             distance_matrix[i][j] = np.nan  # Đánh dấu lỗi với giá trị NaN
 
 # Xuất ma trận khoảng cách ra file Excel
