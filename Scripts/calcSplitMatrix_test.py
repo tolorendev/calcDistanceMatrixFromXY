@@ -4,7 +4,6 @@ import pandas as pd
 
 # API key từ GraphHopper
 api_key = '1c9c4f2c-49d5-4952-a9c7-c35e6a9f4793'
-
 # Đọc tọa độ từ file Excel
 input_file = './data/input_location_data.xlsx'  # Đường dẫn đến file Excel
 df = pd.read_excel(input_file)
@@ -20,23 +19,23 @@ distance_matrix = np.zeros((num_locations, num_locations))
 
 # Lặp qua tất cả các cặp địa điểm
 for i in range(num_locations):
-    for j in range(i + 1, num_locations):  # Chỉ truy vấn khi j > i
-        url = f"https://graphhopper.com/api/1/route?point={locations[i][0]},{locations[i][1]}&point={locations[j][0]},{locations[j][1]}&vehicle=car&locale=en&key={api_key}&calc_points=false"
-        response = requests.get(url)
-        data = response.json()
+    for j in range(num_locations):
+        if i != j:
+            url = f"https://graphhopper.com/api/1/route?point={locations[i][0]},{locations[i][1]}&point={locations[j][0]},{locations[j][1]}&vehicle=car&locale=en&key={api_key}&calc_points=false"
+            response = requests.get(url)
+            data = response.json()
 
-        # Kiểm tra nếu khóa 'paths' tồn tại trong dữ liệu trả về
-        if 'paths' in data:
-            # Lấy khoảng cách từ kết quả trả về
-            distance = data['paths'][0]['distance'] / 1000  # Chuyển đổi từ mét sang kilomet
-            distance_matrix[i][j] = distance
-            distance_matrix[j][i] = distance  # Sử dụng khoảng cách này cho cả hai vị trí
+            # Kiểm tra nếu khóa 'paths' tồn tại trong dữ liệu trả về
+            if 'paths' in data:
+                # Lấy khoảng cách từ kết quả trả về
+                distance = data['paths'][0]['distance'] / 1000  # Chuyển đổi từ mét sang kilomet
+                distance_matrix[i][j] = distance
+            else:
+                # Ghi lại thông báo lỗi nếu không có đường dẫn hợp lệ
+                print(f"Lỗi: Không tìm thấy 'paths' cho cặp tọa độ ({locations[i]}, {locations[j]})")
+                distance_matrix[i][j] = np.nan  # Có thể gán giá trị NaN hoặc một giá trị đặc biệt để đánh dấu lỗi
         else:
-            # Ghi lại thông báo lỗi nếu không có đường dẫn hợp lệ
-            print(f"Lỗi: Không tìm thấy 'paths' cho cặp tọa độ ({locations[i]}, {locations[j]})")
-            distance_matrix[i][j] = np.nan
-            distance_matrix[j][i] = np.nan  # Đánh dấu lỗi ở cả hai vị trí
-    distance_matrix[i][i] = 0  # Khoảng cách đến chính nó bằng 0
+            distance_matrix[i][j] = 0  # Khoảng cách đến chính nó bằng 0
 
 # Xuất ma trận khoảng cách ra file Excel
 output_file = './data/distance_matrix_output.xlsx'  # Đường dẫn đến file Excel xuất ra
