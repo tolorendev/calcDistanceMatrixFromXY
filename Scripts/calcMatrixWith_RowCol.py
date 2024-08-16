@@ -4,11 +4,13 @@ import requests
 import time
 
 # API key từ GraphHopper
-api_key = '1c9c4f2c-49d5-4952-a9c7-c35e6a9f4793'
+api_key = '8367aa24-bc18-40d3-ab27-6e36d50e9030'  #mail nambk
+
+# e0bb61c7-af0b-4f7e-a2a7-a37f6fb3dc90  (giabao)
 
 # Đọc tọa độ từ các file Excel
-input_file_col = './data/row_1-50_col_151-200/input_location_col.xlsx'
-input_file_row = './data/row_1-50_col_151-200/input_location_row.xlsx'
+input_file_col = './data/row_col_depot/row_1-200_col_0/input_location_col.xlsx'
+input_file_row = './data/row_col_depot/row_1-200_col_0/input_location_row.xlsx'
 
 df_col = pd.read_excel(input_file_col)
 df_row = pd.read_excel(input_file_row)
@@ -66,7 +68,7 @@ for i in range(num_row_locations):
             distance_matrix[i][j] = np.nan  # Đánh dấu lỗi với giá trị NaN
 
 # Xuất ma trận khoảng cách ra file Excel
-output_file = './data/row_1-50_col_151-200/distance_matrix_output_rowCol_3.xlsx'
+output_file = './data/row_col_depot/row_1-200_col_0/distance_matrix_output_rowCol_depotCol.xlsx'
 df_output = pd.DataFrame(distance_matrix)
 df_output.to_excel(output_file, index=False, header=False)
 
