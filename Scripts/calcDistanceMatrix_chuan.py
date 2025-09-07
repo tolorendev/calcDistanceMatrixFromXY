@@ -5,11 +5,11 @@ import time
 
 # API key từ GraphHopper
 # api_key = '1c9c4f2c-49d5-4952-a9c7-c35e6a9f4793'
-api_key = "b782da33-bc93-4ec8-9b71-d4b6a00853aa" #
+api_key = "b782da33-bc93-4ec8-9b71-d4b6a00853aa" # mail tran sa
 
 
 # Đọc tọa độ từ file Excel
-input_file = './data/input_location_data.xlsx'  # Đường dẫn đến file Excel
+input_file = 'data/input_location_data.xlsx'  # Đường dẫn đến file Excel
 df = pd.read_excel(input_file)
 
 # Chuyển dữ liệu thành list các tọa độ
@@ -41,7 +41,7 @@ for i in range(num_locations):
 
             while not success and attempts < max_attempts:
                 attempts += 1
-                url = f"https://graphhopper.com/api/1/route?point={locations[i][0]},{locations[i][1]}&point={locations[j][0]},{locations[j][1]}&vehicle=truck&locale=en&key={api_key}&calc_points=false"
+                url = f"https://graphhopper.com/api/1/route?point={locations[i][0]},{locations[i][1]}&point={locations[j][0]},{locations[j][1]}&vehicle=car&locale=en&key={api_key}&calc_points=false"
                 response = requests.get(url)
                 data = response.json()
 
