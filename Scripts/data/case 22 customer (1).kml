@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Bản sao của Bản đồ không có tiêu đề</name>
+    <description/>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Lớp không có tiêu đề</name>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng Phú Cường</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7296988,10.6524739,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Tuấn Anh</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7359172,10.6323308,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Khánh Ân</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.6987578,10.7129109,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Bình Sơn</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.6995137,10.7184916,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Cửa hàng VLXD & TTNT NAM PHÁT THỊNH]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7023472,10.7094096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng VLXD Thuận Phát 484/4</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7420862,10.6879035,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa hàng vật liệu xây dựng Tấn Phát 1</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7251708,10.6663564,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng Phú Cường</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7296984,10.6524738,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng VLXD - TTNT Nam Phát</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7407434,10.69348,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa hàng vlxd WeHome nhà Bè</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.6953776,10.6661552,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa hàng vật liệu xây dựng</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7186401,10.6970672,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Út Trường</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7347741,10.6367573,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng VLXD ĐỨC HƯNG LONG</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7301419,10.7361417,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CÔNG TY HOÀNG LONG PHÁT (CỬA HÀNG CÔNG BÌNH) CHUYÊN VẬT LIỆU KIM KHÍ, XÂY DỰNG</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7302549,10.7392916,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng Hoàng Kim</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7034739,10.7389107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng Tuấn Minh Phát</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7210508,10.7550576,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Hoàng Thành</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7028717,10.7516601,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng Tùng Lộc</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.6969,10.7404025,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vlxd Thanh Hiền</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.710208,10.7467691,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Cửa Hàng VLXD & TTNT Phú Hưng]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.735252,10.7317828,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cửa Hàng Vật Liệu Xây Dựng QUANG LINH</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.7329311,10.7277268,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vật liệu xây dựng Cần Kiệm Phát</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            106.715932,10.7456183,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

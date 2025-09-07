@@ -1,0 +1,119 @@
+import requests
+import json
+import pandas as pd
+
+# Thay 'your_api_key_here' bằng khóa API của bạn từ GraphHopper
+API_KEY = 'f4d4989b-47fd-4664-84bb-08a51b2df36c'
+VEHICLE_TYPE = 'truck'  # Thay đổi loại phương tiện tại đây (car, bike, foot, truck)
+
+# Danh sách các địa điểm (tọa độ)
+# locations = [
+#     (10.89946690101988, 106.83451179577953), # DEPOT
+#     (10.944661924708084, 106.82231689691298), # Place 1
+#     (10.97677372820857, 106.80046595916939), # Place 2
+#     (10.997290189158425, 106.88540733790087), # Place 3
+#     (10.934006570656617, 106.85188476488722), # Place 4
+#     (10.965817717399252, 106.87716293605251), # Place 5
+#     (10.985887192829434, 106.88771713767909), # Place 6
+#     (10.965514680035099, 106.84323112071091), # Place 7
+#     (10.964937015650335, 106.88406388022939), # Place 8
+#     (10.849825967218708, 106.97110838961103), # Place 9
+#     (10.760948032097751, 106.92315186488364), # Place 10
+#     (10.691406170940256, 107.01902106672995), # Place 11
+#     (11.057033002970686, 107.1705123973974), # Place 12
+#     (11.03138213988776, 107.17443863605384), # Place 13
+#     (11.025087505605631, 107.17539963605373), # Place 14
+#     (11.059697462407101, 107.16842796488983), # Place 15
+#     (10.952230991396243, 107.0081662802291), # Place 16
+#     (10.94930222743272, 106.99639250721678), # Place 17
+#     (11.08847707436766, 107.18870963605497), # Place 18
+#     (10.942543448516094, 107.12996388183616), # Place 19
+#     (10.935562401510438, 107.11623782440579), # Place 20
+#     (11.053867192460018, 107.08351112863369), # Place 21
+#     (11.00523949892021, 107.15558634993072), # Place 22
+#     (10.943015798001241, 107.07293702255816), # Place 23
+#     (10.94259982946486, 107.07276495139357), # Place 24
+#     (10.950977130186605, 107.04653002787613), # Place 25
+#     (10.94261386584218, 107.07375166488741), # Place 26
+#     (10.94296986300965, 107.07298078022899), # Place 27
+#     (10.948637959578218, 107.0486495667352), # Place 28
+#     (10.943771829979454, 106.98326993420426), # Place 29
+#     (10.937177966514096, 107.12114253605195), # Place 30
+#     (11.37558005031782, 107.52856636674426), # Place 31
+#     (11.288046748875002, 107.49062452113851), # Place 32
+#     (11.290169408482637, 107.49677519918012), # Place 33
+#     (11.254340416982549, 107.41142826489389), # Place 34
+#     (11.264979434982141, 107.42599673643421), # Place 35
+#     (11.331256138145294, 107.4050269472297), # Place 36
+#     (11.321759249311054, 107.3952021092797), # Place 37
+#     (11.422023891834222, 107.45810854884938), # Place 38
+#     (11.209145710610155, 107.35942225089003), # Place 39
+#     (11.090065539522785, 107.21532306230277), # Place 40
+#     (11.173536465575832, 107.22055825910363), # Place 41
+#     (11.041444295549493, 107.28020579458953), # Place 42
+#     (11.195929562945814, 107.35190988228953), # Place 43
+#     (11.089442931625412, 107.21088628044106), # Place 44
+#     (11.08864124592992, 107.18971068044102), # Place 45
+#     (11.089469631620574, 107.2089288092764), # Place 46
+#     (10.883233054476674, 107.260161475107), # Place 47
+#     (10.897178130757064, 107.26758945345013), # Place 48
+#     (10.968193946301971, 106.90442383605256), # Place 49
+#     (10.968553677433972, 106.90506312440634), # Place 50
+# ]
+locations = [
+    (10.631424, 106.763047), # Vicem hạ long
+    (10.666356, 106.725171), # Cửa hàng vật liệu xây dựng Tấn Phát 1
+    (10.652474, 106.729698), # Cửa Hàng Vật Liệu Xây Dựng Phú Cường
+    (10.666641, 106.724994), # Cửa hàng vật liệu xây dựng
+    (10.705958, 106.703453), # Nguyen Tri Linh Trung Building Material Store
+    (10.657063, 106.715584), # cửa hàng vật liệu xây dựng lê chính
+    (10.679833, 106.701396), # Vlxd phước thịnh phát
+    (10.687904, 106.742086), # Cửa Hàng VLXD Thuận Phát 484/4
+    (10.706705, 106.703144), # Cửa hàng vật liệu xây dựng & trang trí nội thất An Phát
+    (10.882154, 106.628766), # Vật Liệu Xây Dựng- Trang Trí Nội Thất Quốc Hải
+    (10.814462, 106.775176), # Vật liệu xây dựng Vân Anh
+    (10.666155, 106.695378), # Cửa hàng vlxd WeHome nhà Bè
+    (10.69348, 106.740743),  # Cửa Hàng VLXD - TTNT Nam Phát
+    (10.709409, 106.702346), # Cửa hàng VLXD & TTNT NAM PHÁT THỊNH
+    (10.712911, 106.698758), # Cửa Hàng Vlxd Khánh Ân
+    (10.69556, 106.739736),  # Cửa Hàng VLXD Tài Lộc 1
+    (10.636102, 106.719487), # Công ty cổ phần Long Hậu
+    (10.63245, 106.726844),  # Nhà xưởng cao tầng Long Hậu
+    (10.7141956, 106.7376459), # VẬT LIỆU XÂY DỰNG TRƯỜNG THỊNH PHÁT
+    (10.7456182, 106.7159358), # Vật liệu xây dựng Cần Kiệm Phát
+    (10.8029288, 106.7084131), # Vật Liệu Xây Dựng Trung Hiếu
+]
+# Tạo danh sách các cặp địa điểm
+pairs = [(i, j) for i in range(len(locations)) for j in range(i+1, len(locations))]
+
+# Hàm gửi yêu cầu API và lấy khoảng cách, thời gian
+def get_distance_time(coord1, coord2):
+    url = f'https://graphhopper.com/api/1/route?vehicle={VEHICLE_TYPE}&locale=en&calc_points=true&key={API_KEY}&point={coord1[0]},{coord1[1]}&point={coord2[0]},{coord2[1]}'
+    response = requests.get(url)
+    data = response.json()
+    if 'paths' in data:
+        distance = data['paths'][0]['distance'] / 1000  # chuyển đổi sang km
+        time = data['paths'][0]['time'] / 1000 / 60  # chuyển đổi sang phút
+        return distance, time
+    else:
+        return None, None
+
+# Tạo ma trận khoảng cách và thời gian
+distance_matrix = [[0]*len(locations) for _ in range(len(locations))]
+time_matrix = [[0]*len(locations) for _ in range(len(locations))]
+
+# Điền dữ liệu vào ma trận
+for i, j in pairs:
+    distance, time = get_distance_time(locations[i], locations[j])
+    distance_matrix[i][j] = distance_matrix[j][i] = distance
+    time_matrix[i][j] = time_matrix[j][i] = time
+
+# Chuyển ma trận thành DataFrame và lưu vào Excel
+distance_df = pd.DataFrame(distance_matrix, columns=[f'Place {i}' for i in range(len(locations))], index=[f'Place {i}' for i in range(len(locations))])
+time_df = pd.DataFrame(time_matrix, columns=[f'Place {i}' for i in range(len(locations))], index=[f'Place {i}' for i in range(len(locations))])
+
+with pd.ExcelWriter('distance_time_matrix_case20_HoiNghiNhaTrang.xlsx') as writer:
+    distance_df.to_excel(writer, sheet_name='Distance Matrix')
+    time_df.to_excel(writer, sheet_name='Time Matrix')
+
+
