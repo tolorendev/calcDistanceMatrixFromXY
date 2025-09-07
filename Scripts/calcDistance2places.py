@@ -25,8 +25,8 @@ def get_distance_graphhopper(lat1, lon1, lat2, lon2, api_key):
 lat1 = 10.6072384967056  # Vĩ độ của điểm 1
 lon1 = 107.024278842327  # Kinh độ của điểm 1
 
-lat2 = 10.5484656  # Vĩ độ của điểm 2
-lon2 = 107.5436277  # Kinh độ của điểm 2
+lat2 =10.8321343 # Vĩ độ của điểm 2
+lon2 =107.365823 # Kinh độ của điểm 2
 
 # Tính toán khoảng cách
 distance = get_distance_graphhopper(lat1, lon1, lat2, lon2, api_key)

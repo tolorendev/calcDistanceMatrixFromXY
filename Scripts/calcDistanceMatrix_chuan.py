@@ -5,7 +5,7 @@ import time
 
 # API key từ GraphHopper
 # api_key = '1c9c4f2c-49d5-4952-a9c7-c35e6a9f4793'
-api_key = "b782da33-bc93-4ec8-9b71-d4b6a00853aa" # mail tran sa
+api_key = "555ea4ea-895a-4505-bc28-43c828c7a909" # mail tran sa
 
 
 # Đọc tọa độ từ file Excel
@@ -52,6 +52,7 @@ for i in range(num_locations):
                     distance_matrix[i][j] = distance
                     print(f"Khoảng cách từ điểm {i + 1} đến điểm {j + 1}: {distance:.2f} km")
                     success = True
+                    # time.sleep(3)  # nghỉ 1 giây sau khi thành công
                 else:
                     # Ghi lại thông báo lỗi và chờ trước khi thử lại
                     print(f"Thử lại lần {attempts} cho cặp tọa độ ({locations[i]}, {locations[j]})")
