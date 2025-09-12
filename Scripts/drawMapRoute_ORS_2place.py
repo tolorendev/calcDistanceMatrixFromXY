@@ -21,5 +21,5 @@ folium.GeoJson(route, name="route").add_to(m)
 folium.Marker(location=start[::-1], tooltip="Start").add_to(m)
 folium.Marker(location=end[::-1], tooltip="End").add_to(m)
 
-m.save("route_map.html")
+m.save("./data/route_map.html")
 print("✅ Đã lưu bản đồ route trong file route_map.html")
